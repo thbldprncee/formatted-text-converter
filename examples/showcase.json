@@ -1,0 +1,255 @@
+[
+  {
+    "type": "header",
+    "level": 1,
+    "text": "Formatted Text Converter"
+  },
+  {
+    "type": "paragraph",
+    "children": [
+      {
+        "type": "text",
+        "content": "One document model, many formats. "
+      },
+      {
+        "type": "bold",
+        "text": "Bold"
+      },
+      {
+        "type": "text",
+        "content": ", "
+      },
+      {
+        "type": "italic",
+        "text": "italic"
+      },
+      {
+        "type": "text",
+        "content": ", "
+      },
+      {
+        "type": "strikethrough",
+        "text": "strikethrough"
+      },
+      {
+        "type": "text",
+        "content": ", "
+      },
+      {
+        "type": "code_inline",
+        "code": "inline code"
+      },
+      {
+        "type": "text",
+        "content": " and "
+      },
+      {
+        "type": "link",
+        "url": "https://github.com/thbldprncee",
+        "text": "links"
+      },
+      {
+        "type": "text",
+        "content": " survive every conversion."
+      }
+    ]
+  },
+  {
+    "type": "header",
+    "level": 2,
+    "text": "Lists"
+  },
+  {
+    "type": "list",
+    "ordered": false,
+    "children": [
+      {
+        "type": "list_item",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "content": "Markdown"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "list_item",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "content": "XHTML"
+              }
+            ]
+          },
+          {
+            "type": "list",
+            "ordered": true,
+            "children": [
+              {
+                "type": "list_item",
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "content": "nested lists"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "list_item",
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "content": "keep their numbering"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "list_item",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "content": "JSON, RTF, plain text and LaTeX"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "header",
+    "level": 2,
+    "text": "Code"
+  },
+  {
+    "type": "code_block",
+    "code": "Converter.defaults().convert(Path.of(\"in.md\"), Path.of(\"out.json\"));",
+    "language": "java"
+  },
+  {
+    "type": "header",
+    "level": 2,
+    "text": "Tables"
+  },
+  {
+    "type": "table",
+    "children": [
+      {
+        "type": "table_row",
+        "children": [
+          {
+            "type": "table_cell",
+            "text": "Format"
+          },
+          {
+            "type": "table_cell",
+            "text": "Read"
+          },
+          {
+            "type": "table_cell",
+            "text": "Write"
+          }
+        ]
+      },
+      {
+        "type": "table_row",
+        "children": [
+          {
+            "type": "table_cell",
+            "text": "Markdown"
+          },
+          {
+            "type": "table_cell",
+            "text": "yes"
+          },
+          {
+            "type": "table_cell",
+            "text": "yes"
+          }
+        ]
+      },
+      {
+        "type": "table_row",
+        "children": [
+          {
+            "type": "table_cell",
+            "text": "LaTeX"
+          },
+          {
+            "type": "table_cell",
+            "text": "no"
+          },
+          {
+            "type": "table_cell",
+            "text": "yes"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "blockquote",
+    "children": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "content": "Quotes work too."
+          }
+        ]
+      },
+      {
+        "type": "blockquote",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "content": "Even nested ones."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "horizontal_rule"
+  },
+  {
+    "type": "paragraph",
+    "children": [
+      {
+        "type": "text",
+        "content": "Кириллица и «типографика» — тоже."
+      }
+    ]
+  }
+]

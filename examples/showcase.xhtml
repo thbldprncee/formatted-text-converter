@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Formatted Text Converter</title>
+  </head>
+  <body>
+    <h1>Formatted Text Converter</h1>
+    <p>One document model, many formats. <strong>Bold</strong>, <em>italic</em>, <del>strikethrough</del>, <code>inline code</code> and <a href="https://github.com/thbldprncee">links</a> survive every conversion.</p>
+    <h2>Lists</h2>
+    <ul>
+      <li>Markdown</li>
+      <li>
+        <p>XHTML</p>
+        <ol>
+          <li>nested lists</li>
+          <li>keep their numbering</li>
+        </ol>
+      </li>
+      <li>JSON, RTF, plain text and LaTeX</li>
+    </ul>
+    <h2>Code</h2>
+    <pre><code class="language-java">Converter.defaults().convert(Path.of(&quot;in.md&quot;), Path.of(&quot;out.json&quot;));</code></pre>
+    <h2>Tables</h2>
+    <table>
+      <thead>
+        <tr><th>Format</th><th>Read</th><th>Write</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Markdown</td><td>yes</td><td>yes</td></tr>
+        <tr><td>LaTeX</td><td>no</td><td>yes</td></tr>
+      </tbody>
+    </table>
+    <blockquote>
+      <p>Quotes work too.</p>
+      <blockquote>
+        <p>Even nested ones.</p>
+      </blockquote>
+    </blockquote>
+    <hr/>
+    <p>Кириллица и «типографика» — тоже.</p>
+  </body>
+</html>

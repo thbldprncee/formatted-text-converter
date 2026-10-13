@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage[normalem]{ulem}
+\usepackage{hyperref}
+\usepackage{graphicx}
+
+\begin{document}
+
+\section*{Formatted Text Converter}
+
+One document model, many formats. \textbf{Bold}, \emph{italic}, \sout{strikethrough}, \texttt{inline code} and \href{https://github.com/thbldprncee}{links} survive every conversion.
+
+\subsection*{Lists}
+
+\begin{itemize}
+  \item Markdown
+  \item XHTML
+  
+  \begin{enumerate}
+    \item nested lists
+    \item keep their numbering
+  \end{enumerate}
+  \item JSON, RTF, plain text and LaTeX
+\end{itemize}
+
+\subsection*{Code}
+
+\begin{verbatim}
+Converter.defaults().convert(Path.of("in.md"), Path.of("out.json"));
+\end{verbatim}
+
+\subsection*{Tables}
+
+\begin{tabular}{|l|l|l|}
+\hline
+Format & Read & Write \\ \hline
+Markdown & yes & yes \\ \hline
+LaTeX & no & yes \\ \hline
+\end{tabular}
+
+\begin{quote}
+Quotes work too.
+
+\begin{quote}
+Even nested ones.
+\end{quote}
+\end{quote}
+
+\noindent\rule{\linewidth}{0.4pt}
+
+Кириллица и «типографика» — тоже.
+
+\end{document}

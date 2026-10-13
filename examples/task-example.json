@@ -1,0 +1,50 @@
+[
+  {
+    "type": "header",
+    "level": 1,
+    "text": "Это тестовый файл, который показывает что парсер может"
+  },
+  {
+    "type": "header",
+    "level": 2,
+    "text": "Заголовки и форматирование"
+  },
+  {
+    "type": "bold",
+    "text": "Жирный текст"
+  },
+  {
+    "type": "paragraph",
+    "children": [
+      {
+        "type": "text",
+        "content": " и "
+      },
+      {
+        "type": "italic",
+        "text": "курсивный текст"
+      },
+      {
+        "type": "text",
+        "content": "."
+      }
+    ]
+  },
+  {
+    "type": "code_inline",
+    "code": "Инлайн-код:"
+  },
+  {
+    "type": "paragraph",
+    "children": [
+      {
+        "type": "text",
+        "content": " "
+      },
+      {
+        "type": "code_inline",
+        "code": "std::string s = \"hello\";"
+      }
+    ]
+  }
+]
