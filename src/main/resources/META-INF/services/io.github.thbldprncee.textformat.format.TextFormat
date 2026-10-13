@@ -1,0 +1,6 @@
+io.github.thbldprncee.textformat.formats.json.JsonFormat
+io.github.thbldprncee.textformat.formats.latex.LatexFormat
+io.github.thbldprncee.textformat.formats.markdown.MarkdownFormat
+io.github.thbldprncee.textformat.formats.rtf.RtfFormat
+io.github.thbldprncee.textformat.formats.text.PlainTextFormat
+io.github.thbldprncee.textformat.formats.xhtml.XhtmlFormat
