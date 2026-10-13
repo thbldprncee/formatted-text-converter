@@ -16,7 +16,6 @@ transform it, and write it back out in any supported format, LaTeX included.
 ![Lombok](https://img.shields.io/badge/Lombok-1.18-BC4521?style=flat-square)
 ![Coverage](https://img.shields.io/badge/coverage-96%25-brightgreen?style=flat-square)
 ![Dependencies](https://img.shields.io/badge/runtime%20dependencies-0-blue?style=flat-square)
-![License](https://img.shields.io/badge/license-MIT-lightgrey?style=flat-square)
 
 </div>
 
@@ -363,7 +362,3 @@ formatted-text-converter/
 ## Background
 
 The project started as a C++ university assignment: read and write several text formats through a single AST, remove styles, and configure the indentation of XML and JSON output. This is a Java 21 reimplementation that adds strikethrough, links, images, quotes and rules, plain text and LaTeX output, content-based format detection, statistics, a library API and lossless round trips across every format.
-
-## License
-
-[MIT](LICENSE)
