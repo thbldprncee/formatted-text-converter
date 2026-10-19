@@ -1,0 +1,32 @@
+@startuml architecture
+!include style.iuml
+skinparam nodesep 50
+skinparam ranksep 60
+
+component "cli\nMain · CliOptions" as Cli
+component "api\nConverter (facade)" as Api
+component "format\nTextFormat · FormatRegistry\nDocumentParser · DocumentWriter" as Format
+component "ast\nsealed record model\nNodeVisitor" as Ast
+component "ast.transform\nStyleRemover · TextMerger" as Transform
+component "ast.stats\nDocumentStatistics" as Stats
+component "common\nCharCursor · IndentStyle\nIndentedOutput · exceptions" as Common
+
+package "formats  (registered in META-INF/services)" as Formats {
+  component "markdown" as Md
+  component "xhtml" as Html
+  component "json" as Json
+  component "rtf" as Rtf
+  component "text" as Txt
+  component "latex" as Tex
+}
+
+Cli --> Api : convert(in, out)
+Cli --> Stats
+Api --> Format : detect · parser · writer
+Api --> Transform : apply
+Format ..> Formats : ServiceLoader
+Formats --> Ast : parse into / write from
+Transform --> Ast
+Stats --> Ast
+Formats --> Common
+@enduml

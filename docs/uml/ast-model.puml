@@ -1,0 +1,118 @@
+@startuml ast-model
+!include style.iuml
+skinparam nodesep 14
+skinparam ranksep 40
+skinparam packageStyle rectangle
+skinparam package {
+  BorderColor #9AA8C0
+  FontStyle plain
+}
+
+interface "Node <<sealed>>" as Node {
+  + accept(NodeVisitor<R>) : R
+}
+interface "Block <<sealed>>" as Block
+interface "Inline <<sealed>>" as Inline
+interface "Style <<sealed>>" as Style
+interface InlineContainer {
+  + children() : List<Inline>
+  + withChildren(List<Inline>)
+}
+
+
+package "Structure" {
+class "Document <<record>>" as Document {
+  blocks : List<Block>
+}
+class "ListItem <<record>>" as ListItem {
+  blocks : List<Block>
+}
+class "TableRow <<record>>" as TableRow {
+  cells : List<TableCell>
+}
+class "TableCell <<record>>" as TableCell {
+  children : List<Inline>
+}
+}
+
+package "Blocks" {
+class "Paragraph <<record>>" as Paragraph {
+  children : List<Inline>
+}
+class "Heading <<record>>" as Heading {
+  level : int  {1..6}
+  children : List<Inline>
+}
+class "CodeBlock <<record>>" as CodeBlock {
+  code : String
+  language : String
+}
+class "ListBlock <<record>>" as ListBlock {
+  ordered : boolean
+  items : List<ListItem>
+}
+class "Table <<record>>" as Table {
+  rows : List<TableRow>
+}
+class "BlockQuote <<record>>" as BlockQuote {
+  blocks : List<Block>
+}
+class "ThematicBreak <<record>>" as ThematicBreak
+}
+
+package "Inlines" {
+class "Text <<record>>" as Text {
+  value : String
+}
+class "InlineCode <<record>>" as InlineCode {
+  code : String
+}
+class "Link <<record>>" as Link {
+  url : String
+  children : List<Inline>
+}
+class "Image <<record>>" as Image {
+  url : String
+  alt : String
+}
+class "Bold <<record>>" as Bold
+class "Italic <<record>>" as Italic
+class "Strikethrough <<record>>" as Strikethrough
+}
+
+Node <|-- Document
+Node <|-- Block
+Node <|-- Inline
+Node <|-- ListItem
+Node <|-- TableRow
+Node <|-- TableCell
+
+Block <|.. Paragraph
+Block <|.. Heading
+Block <|.. CodeBlock
+Block <|.. ListBlock
+Block <|.. Table
+Block <|.. BlockQuote
+Block <|.. ThematicBreak
+
+Inline <|.. Text
+Inline <|.. InlineCode
+Inline <|.. Link
+Inline <|.. Image
+Inline <|-- Style
+Style <|.. Bold
+Style <|.. Italic
+Style <|.. Strikethrough
+
+
+note bottom of Strikethrough
+  styles are removed by StyleRemover;
+  the text inside is kept
+end note
+note bottom of InlineContainer
+  implemented by Paragraph, Heading,
+  TableCell, Link and every Style;
+  every collection is an immutable
+  List.copyOf, so records compare by value
+end note
+@enduml

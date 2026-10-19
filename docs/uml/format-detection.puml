@@ -1,0 +1,35 @@
+@startuml format-detection
+!include style.iuml
+skinparam ActivityBackgroundColor $fill
+skinparam ActivityBorderColor $border
+skinparam ActivityDiamondBackgroundColor $fill
+skinparam ActivityDiamondBorderColor $border
+
+start
+:read the input file (UTF-8);
+if (--from given?) then (yes)
+  :take that format from the registry;
+else (no)
+  :ask every readable format\nfor a confidence score;
+  note right
+    RTF: starts with {\\rtf → 100
+    XHTML: <?xml, <!DOCTYPE or <html → 95;
+    other markup with closing tags → 80
+    JSON: starts with { or [ → 90
+    Markdown: headings, lists, emphasis → 30
+    (any other text → 20)
+    Plain text: 1, the last resort
+  end note
+  :pick the highest score\n(ties broken by format id);
+endif
+if (format can be read?) then (yes)
+  :parse into the Document AST;
+else (no)
+  :UnsupportedFormatException\n(e.g. LaTeX is output-only);
+  stop
+endif
+:apply transformations\n(--strip-styles, custom transformers);
+:choose the output format\nby the file extension;
+:write with the configured indentation;
+stop
+@enduml

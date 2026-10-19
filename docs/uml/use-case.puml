@@ -1,0 +1,36 @@
+@startuml use-case
+!include style.iuml
+left to right direction
+skinparam linetype ortho
+skinparam ranksep 90
+
+actor "Command-line user" as Cli
+actor "Java developer\n(library user)" as Dev
+
+rectangle "Formatted Text Converter" {
+  usecase "Convert a document\nto another format" as Convert
+  usecase "Detect the input\nformat by content" as Detect
+  usecase "Force the input\nformat (--from)" as From
+  usecase "Remove styles\n(--strip-styles)" as Strip
+  usecase "Set XHTML / JSON\nindentation (--indent)" as Indent
+  usecase "Print document\nstatistics (--stats)" as Stats
+  usecase "List supported\nformats" as List
+  usecase "Transform the\ndocument model" as Transform
+  usecase "Add a new format\n(ServiceLoader plugin)" as Plugin
+}
+
+Cli --> Convert
+Cli --> From
+Cli --> Strip
+Cli --> Indent
+Cli --> Stats
+Cli --> List
+Dev --> Convert
+Dev --> Transform
+Dev --> Plugin
+
+Convert ..> Detect : <<include>>
+From ..> Convert : <<extend>>
+Strip ..> Convert : <<extend>>
+Indent ..> Convert : <<extend>>
+@enduml

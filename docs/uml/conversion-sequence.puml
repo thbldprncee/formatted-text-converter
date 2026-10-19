@@ -1,0 +1,31 @@
+@startuml conversion-sequence
+!include style.iuml
+autonumber
+
+actor User
+participant "Main" as Main
+participant "Converter" as Conv
+participant "FormatRegistry" as Reg
+participant "MarkdownFormat\n(detected)" as Md
+participant "StyleRemover" as Tr
+participant "JsonFormat\n(by extension)" as Json
+
+User -> Main : textconv in.md out.json ~--strip-styles ~--indent=4
+Main -> Main : CliOptions.parse(args)
+Main -> Conv : builder().indent(4)\n.stripStyles(true).build()
+Main -> Conv : convert(in.md, out.json)
+activate Conv
+Conv -> Reg : forOutput(out.json)
+Reg --> Conv : JsonFormat
+Conv -> Reg : detect(content)
+Reg -> Reg : every readable format rates the content;\nhighest confidence wins
+Reg --> Conv : MarkdownFormat
+Conv -> Md : parser().parse(content)
+Md --> Conv : Document (AST)
+Conv -> Tr : apply(document)
+Tr --> Conv : Document without styles
+Conv -> Json : writer(indent 4).write(document, file)
+Conv --> Main : Result(source, target, document)
+deactivate Conv
+Main --> User : in.md (Markdown) -> out.json (JSON)
+@enduml

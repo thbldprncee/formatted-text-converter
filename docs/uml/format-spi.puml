@@ -1,0 +1,94 @@
+@startuml format-spi
+!include style.iuml
+skinparam nodesep 30
+skinparam ranksep 50
+
+interface TextFormat {
+  + id() : String
+  + displayName() : String
+  + extensions() : List<String>
+  + capabilities() : Set<Capability>
+  + parser() : DocumentParser
+  + writer(WriterOptions) : DocumentWriter
+  + detect(content) : int
+}
+interface DocumentParser {
+  + parse(content) : Document
+}
+interface DocumentWriter {
+  + write(Document, Appendable)
+  + render(Document) : String
+}
+interface "NodeVisitor<R>" as NodeVisitor
+
+class FormatRegistry {
+  + loadInstalled() : FormatRegistry
+  + byId(id) : Optional<TextFormat>
+  + forOutput(Path) : TextFormat
+  + detect(content) : TextFormat
+}
+
+abstract class AbstractTextWriter {
+  + write(Document, Appendable)
+  # blocks(List<Block>) : String
+  # inlines(List<Inline>) : String
+  # blockSeparator() : String
+}
+abstract class AbstractStructuredWriter {
+  # indent() : IndentStyle
+}
+class "WriterOptions <<record>>" as WriterOptions {
+  indent : IndentStyle
+}
+enum Capability {
+  READ
+  WRITE
+}
+
+class MarkdownFormat
+class XhtmlFormat
+class JsonFormat
+class RtfFormat
+class PlainTextFormat
+class LatexFormat
+
+class MarkdownParser
+class XhtmlParser
+class RtfParser
+class MarkdownWriter
+class RtfWriter
+class PlainTextWriter
+class LatexWriter
+class XhtmlWriter
+
+FormatRegistry o--> "*" TextFormat : ServiceLoader
+TextFormat ..> DocumentParser : creates
+TextFormat ..> DocumentWriter : creates
+TextFormat ..> Capability
+TextFormat ..> WriterOptions
+
+TextFormat <|.. MarkdownFormat
+TextFormat <|.. XhtmlFormat
+TextFormat <|.. JsonFormat
+TextFormat <|.. RtfFormat
+TextFormat <|.. PlainTextFormat
+TextFormat <|.. LatexFormat
+
+DocumentParser <|.. MarkdownParser
+DocumentParser <|.. XhtmlParser
+DocumentParser <|.. RtfParser
+
+DocumentWriter <|.. AbstractTextWriter
+NodeVisitor <|.. AbstractTextWriter
+DocumentWriter <|.. AbstractStructuredWriter
+AbstractTextWriter <|-- MarkdownWriter
+AbstractTextWriter <|-- RtfWriter
+AbstractTextWriter <|-- PlainTextWriter
+AbstractTextWriter <|-- LatexWriter
+AbstractStructuredWriter <|-- XhtmlWriter
+
+note bottom of JsonFormat
+  JsonReader → DocumentJsonMapper → Document
+  Document → DocumentJsonMapper → JsonSerializer
+end note
+@enduml

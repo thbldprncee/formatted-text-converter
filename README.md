@@ -220,6 +220,80 @@ Node ─┬─ Document(blocks)
 
 ---
 
+## UML Diagrams
+
+All diagrams are [PlantUML](https://plantuml.com) sources in [`docs/uml`](docs/uml), rendered to SVG next to them; click a title to expand it. To re-render after a change:
+
+```bash
+docker run --rm -v "$PWD/docs/uml":/data -w /data plantuml/plantuml:1.2024.7 -tsvg *.puml
+```
+
+#### Requirements
+
+<details>
+<summary><b>Use cases: command-line user and library user</b></summary>
+<br/>
+
+![Use cases](docs/uml/use-case.svg)
+
+</details>
+
+#### Architecture
+
+<details>
+<summary><b>Packages and their dependencies</b></summary>
+<br/>
+
+![Architecture](docs/uml/architecture.svg)
+
+</details>
+
+#### Structure
+
+<details>
+<summary><b>Document model: the sealed record AST</b></summary>
+<br/>
+
+![AST model](docs/uml/ast-model.svg)
+
+</details>
+
+<details>
+<summary><b>Format plugins: TextFormat, parsers, writers, registry</b></summary>
+<br/>
+
+![Format SPI](docs/uml/format-spi.svg)
+
+</details>
+
+<details>
+<summary><b>Transformations and statistics</b></summary>
+<br/>
+
+![Transformations](docs/uml/transformations.svg)
+
+</details>
+
+#### Behaviour
+
+<details>
+<summary><b>Converting a file: textconv in.md out.json --strip-styles --indent=4</b></summary>
+<br/>
+
+![Conversion sequence](docs/uml/conversion-sequence.svg)
+
+</details>
+
+<details>
+<summary><b>Choosing the input and output formats</b></summary>
+<br/>
+
+![Format detection](docs/uml/format-detection.svg)
+
+</details>
+
+---
+
 ## Design Patterns
 
 | Pattern | Where | Why |
@@ -353,6 +427,7 @@ formatted-text-converter/
 │   ├── api/                  # Converter facade
 │   └── cli/                  # Main, CliOptions
 ├── src/main/resources/META-INF/services/   # format registration
+├── docs/uml/                  # PlantUML sources + rendered SVG diagrams
 ├── src/test/java/...          # 154 tests
 └── examples/                  # sample documents in every format
 ```

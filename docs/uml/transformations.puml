@@ -1,0 +1,49 @@
+@startuml transformations
+!include style.iuml
+
+interface "DocumentTransformer" as DocumentTransformer {
+  + apply(Document) : Document
+  + then(DocumentTransformer) : DocumentTransformer
+  + {static} identity() : DocumentTransformer
+  + {static} chain(DocumentTransformer...) : DocumentTransformer
+}
+interface "UnaryOperator<Document>" as UnaryOperator
+abstract class InlineRewriter {
+  + apply(Document) : Document  {final}
+  # rewrite(Inline) : List<Inline>
+  # rewriteInlines(List<Inline>) : List<Inline>
+}
+class StyleRemover {
+  # rewrite(Inline) : List<Inline>
+}
+class TextMerger {
+  # rewriteInlines(List<Inline>) : List<Inline>
+}
+class "DocumentStatistics <<record>>" as DocumentStatistics {
+  words : long
+  characters : long
+  charactersWithoutSpaces : long
+  nodeCounts : Map<String, Long>
+  + {static} of(Document) : DocumentStatistics
+  + count(Class<? extends Node>) : long
+  + readingMinutes() : long
+  + report() : String
+}
+
+UnaryOperator <|-- DocumentTransformer
+DocumentTransformer <|.. InlineRewriter
+InlineRewriter <|-- StyleRemover
+InlineRewriter <|-- TextMerger
+
+note right of InlineRewriter
+  Template Method: copies the block structure
+  and lets a subclass rewrite inline content
+end note
+note right of StyleRemover
+  Bold, Italic, Strikethrough → their children
+end note
+note right of TextMerger
+  joins adjacent Text nodes
+  and drops empty ones
+end note
+@enduml
